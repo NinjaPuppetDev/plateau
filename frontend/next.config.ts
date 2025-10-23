@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/graphql',
-        destination: 'http://127.0.0.1:4000/graphql', // local backend
+        destination: 'http://127.0.0.1:4000/graphql', // local backend http://127.0.0.1:4000/graphql
       },
     ];
   },
