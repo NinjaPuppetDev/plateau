@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "your-header-here",
+    "payload": "your-payload-here",
+    "signature": "your-signature-here"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Your App Name",
+    "iconUrl": "https://yourdomain.com/icon.png",
+    "homeUrl": "https://yourdomain.com",
+    "imageUrl": "https://yourdomain.com/og-image.png",
+    "buttonTitle": "🚀 Launch",
+    "splashImageUrl": "https://yourdomain.com/splash.png",
+    "splashBackgroundColor": "#000000",
+    "webhookUrl": "https://yourdomain.com/api/webhook"
+  }
+}
