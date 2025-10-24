@@ -5,10 +5,14 @@ const GRAPHQL_URL = '/graphql'; // relative path, proxied by Next.js
 console.log('🔗 Apollo Client configured with URL:', GRAPHQL_URL);
 
 const httpLink = new HttpLink({
-  uri: GRAPHQL_URL,
+  uri: '/graphql', // rewritten by Next -> backend
   credentials: 'include',
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    'x-demo-token': process.env.NEXT_PUBLIC_DEMO_TOKEN || '',
+  },
 });
+
 
 export const apolloClient = new ApolloClient({
   link: httpLink,

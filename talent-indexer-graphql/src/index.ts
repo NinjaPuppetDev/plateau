@@ -6,6 +6,8 @@ import { createServer as createHttpServer } from "http";
 import { createSchema, createYoga } from "graphql-yoga";
 import { Pool } from "pg";
 import { ethers } from "ethers";
+import express from "express";
+import cors from "cors";
 
 const config = {
   RPC_URL: String(process.env.RPC_URL ?? ""),
@@ -1100,16 +1102,64 @@ const schema = createSchema({
   },
 });
 
+function requireDemoTokenMiddleware(req: any, res: any, next: any) {
+  // Allow local dev requests to bypass token (from 127.0.0.1)
+  const remoteIp = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "");
+  const isLocal =
+    remoteIp.includes("127.0.0.1") ||
+    remoteIp.includes("::1") ||
+    remoteIp.includes("::ffff:127.0.0.1") ||
+    req.hostname?.includes("localhost");
+
+  const DEMO_TOKEN = process.env.DEMO_TOKEN || "";
+
+  // If no DEMO_TOKEN set, fail closed (safer)
+  if (!DEMO_TOKEN) {
+    console.error("DEMO_TOKEN not configured — refusing GraphQL requests");
+    return res.status(500).send("Server misconfigured");
+  }
+
+  // Accept either header or query param
+  const incoming = (req.get("x-demo-token") || req.query?.demo_token || "").trim();
+
+  if (!isLocal && incoming !== DEMO_TOKEN) {
+    console.warn(`Unauthorized GraphQL request from ${remoteIp}`);
+    return res.status(401).send("Unauthorized");
+  }
+
+  next();
+}
+
+
 function createGraphQLServer() {
+  // create Yoga as before, using your existing `schema` variable
   const yoga = createYoga({
     schema,
-    cors: {
-      origin: "*",
-      credentials: true,
-    },
-    logging: 'error',
+    logging: "error",
+    // keep CORS minimal — yoga's CORS is okay but we'll use express-level cors too
+    cors: false, // let express handle CORS
   });
-  return createHttpServer(yoga);
+
+  // express to insert middleware easily
+  const app = express();
+
+  // global CORS - allow the ngrok origin and credentials (adjust as needed)
+  app.use(cors({
+    origin: (origin, cb) => cb(null, true), // keep flexible for dev; you may restrict to ngrok domain
+    credentials: true,
+  }));
+
+  // attach token middleware on /graphql before Yoga handles it
+  app.use("/graphql", requireDemoTokenMiddleware);
+
+  // mount the Yoga handler (it returns an express-compatible handler)
+  app.use("/graphql", yoga);
+
+  // add health route
+  app.get("/healthz", (_req, res) => res.send("ok"));
+
+  // create plain http server so you can call .listen(...) same as before
+  return createHttpServer(app);
 }
 
 async function main() {
