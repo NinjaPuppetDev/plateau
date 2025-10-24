@@ -14,6 +14,9 @@
 ## ✨ Demo
 (https://madilyn-occludent-nonsegmentally.ngrok-free.dev/)
 
+## Faucet MockUSD
+(https://sepolia.basescan.org/address/0xf2335e995494c1b7d24e6d94ae30a8970fe45706)
+
 ## 🎥 Demo Video
 [Watch Demo on Vimeo](https://vimeo.com/1130020067?share=copy&fl=sv&fe=ci)
 
@@ -86,3 +89,14 @@ ngrok http 3000
 Plateau aims to create an **open and transparent job marketplace** that removes traditional barriers and intermediaries. By leveraging blockchain technology and social integration, we're building a future where finding work, hiring talent, and completing projects is seamless, secure, and community-driven.
 
 ---
+
+## DEMO token: <NOT PUBLISHED IN REPO>
+
+Example curl (header):
+
+```curl -i -X POST "https://madilyn-occludent-nonsegmentally.ngrok-free.dev/graphql" \
+  -H "Content-Type: application/json" \
+  -H "x-demo-token: <THE_TOKEN_FROM_TEAM>" \
+  -d '{"query":"{ latestJobs(limit:5){ job_id client amount description } }"}'
+```
+
