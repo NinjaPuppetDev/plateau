@@ -12,11 +12,11 @@
 
 **Base Batches 002: Builder Track Submission**
 ## ✨ Demo
-https://madilyn-occludent-nonsegmentally.ngrok-free.dev/
+(https://madilyn-occludent-nonsegmentally.ngrok-free.dev/)
 
 ## Faucet MockUSD
-https://faucet-eight-theta.vercel.app/
-https://sepolia.basescan.org/address/0xf2335e995494c1b7d24e6d94ae30a8970fe45706
+- [Sepolia Mock ERC20 Faucet](https://faucet-eight-theta.vercel.app/)
+- (https://sepolia.basescan.org/address/0xf2335e995494c1b7d24e6d94ae30a8970fe45706)
 
 ## 🎥 Demo Video
 [Watch Demo on Vimeo](https://vimeo.com/1130020067?share=copy&fl=sv&fe=ci)
