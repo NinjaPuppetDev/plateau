@@ -15,7 +15,7 @@
 (https://madilyn-occludent-nonsegmentally.ngrok-free.dev/)
 
 ## Faucet MockUSD
-- [Sepolia Mock ERC20 Faucet](https://faucet-eight-theta.vercel.app/)
+- [Sepolia Mock ERC20 Faucet](https://faucet-mock.vercel.app/)
 - (https://sepolia.basescan.org/address/0xf2335e995494c1b7d24e6d94ae30a8970fe45706)
 
 ## 🎥 Demo Video
